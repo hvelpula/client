@@ -1,0 +1,76 @@
+
+<nav class="navbar navbar-expand-lg py-3 navbar-dark bg-success shadow-sm">
+    <h2 align="center">Hotel Management System</h2>
+     <div style="float:right">
+        <button class="btn btn-info" routerLink="/homepage">Logout</button>
+        <button class="btn btn-info" routerLink="/travel-agency-page">GoBack</button>
+
+      </div>
+  </nav>
+<h4 align="center" style="color: violet;"><strong>Hotel Details</strong></h4>
+<div fxLayout fxLayoutAlign="center center">
+    <mat-form-field fxFlex="40%">
+      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search">
+    </mat-form-field>
+  </div>
+
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+<ng-container matColumnDef="hotelName">
+<th mat-header-cell *matHeaderCellDef mat-sort-header> Hotel Name </th>
+<td mat-cell *matCellDef="let element"> {{element.hotelName}} </td>
+</ng-container>
+
+<ng-container matColumnDef="roomType">
+<th mat-header-cell *matHeaderCellDef mat-sort-header> Room Type </th>
+<td mat-cell *matCellDef="let element"> {{element.roomType}} </td>
+</ng-container>
+
+<ng-container matColumnDef="roomNo">
+<th mat-header-cell *matHeaderCellDef mat-sort-header> Room No </th>
+<td mat-cell *matCellDef="let element"> {{element.roomNo}} </td>
+</ng-container>
+
+<ng-container matColumnDef="price">
+<th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+<td mat-cell *matCellDef="let element"> {{element.price}} </td>
+</ng-container>
+
+<ng-container matColumnDef="hotelAddress">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> Hotel Address </th>
+  <td mat-cell *matCellDef="let element"> {{element.hotelAddress}} </td>
+</ng-container>
+
+<ng-container  matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef> Action </th>
+    <td mat-cell *matCellDef="let element"><button  (click)="bookHotel(element,i)" mat-stroked-button >Book</button> </td>
+  </ng-container>
+
+<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table> 
+<mat-paginator [pageSizeOptions]="[1, 10, 20]" showFirstLastButtons></mat-paginator>
+
+
+  <!-- <table class="table table-striped" border="2">
+    <tr>
+      <td>S.No</td>
+      <td>Hotel Name</td>
+      <td>Room Type</td>
+      <td>RoomNo</td>
+      <td>Price</td>
+      <td>HotelAddress</td>
+      <td>Action</td>
+
+    <tr *ngFor="let list of booking ;let i = index">
+      <td>{{i+1}}</td>
+      <td>{{list.hotelName}}</td>
+      <td>{{list.roomType}}</td>
+      <td>{{list.roomNo}}</td>
+      <td>{{list.price}}</td>
+      <td>{{list.hotelAddress}}</td>
+      <td><button (click)="bookHotel(list,i)" class="btn btn-info">Book</button></td>
+
+    </tr>
+  </table> -->

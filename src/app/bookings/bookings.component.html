@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg py-3 navbar-dark bg-success shadow-sm">
+    <h2 align="center">Hotel Management System</h2>
+</nav>
+  <tabs>
+  <tab tabtitle="BookingDetails">
+  
+    <table class="table table-striped" border="2">
+      <tr>
+        <td>HotelId</td>
+        <td>Hotel Name</td>
+        <td>Room Type</td>
+        <td>RoomNo</td>
+        <td>Price</td>
+        <td>HotelAddress</td>
+        <td>Action</td>
+
+      <tr *ngFor="let list of booking ;let i = index">
+          <td>{{i+1}}</td>
+          <td>{{list.hotelId}}</td>
+          <td>{{list.hotelName}}</td>
+          <td>{{list.roomType}}</td>
+          <td>{{list.roomNo}}</td>
+          <td>{{list.price}}</td>
+          <td>{{list.hotelAddress}}</td>
+
+    </tr>
+    </table>
+  </tab>
+  </tabs>
+  
+  
+        
+
+  
+  

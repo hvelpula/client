@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-lg py-3 navbar-dark bg-success shadow-sm">
+    </nav>
+
+<form (ngSubmit)="onSubmit(loginform)" #loginform="ngForm">
+    <div class="jumbotron">
+      <div class="container">
+        <div class="row">
+          <div class="column">
+            <div class="col-md-6 offset-md-3" style="float : right;">
+              <h2>Super Admin Login</h2>
+  
+  
+              <div class="form-group" class="form-group row">
+                <label for="userName">User Name:</label>
+                <input type="text" class="form-control" id="userName" name="userName" #userName="ngModel"
+                  [(ngModel)]="superAdminLogin.userName" required>
+                <div [hidden]="userName.valid || userName.pristine" class="alert alert-danger">username is required</div>
+              </div>
+              <div class="form-group" class="form-group row">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" #password="ngModel"
+                  [(ngModel)]="superAdminLogin.password" required>
+                <div [hidden]="password.valid || password.pristine" class="alert alert-danger">Password is required</div>
+              </div>
+              <button type="submit" [disabled]="!loginform.valid" class="btn btn-info" >Login</button>
+              
+            </div>
+          </div>
+          <div class="column" style="float: left;">
+            <p><img src="/assets/image/images1.jpg" width="450" height="400">
+            </p>
+          </div>

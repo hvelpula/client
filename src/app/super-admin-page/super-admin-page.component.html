@@ -1,0 +1,279 @@
+<nav class="navbar navbar-expand-lg py-3 navbar-dark bg-success shadow-sm">
+  <h2 align="center">Hotel Management System</h2>
+  <div style="float:right;">
+    <button class="btn btn-info" routerLink="/homepage">Logout</button>
+  </div>
+</nav>
+
+<tabs>
+  <tab tabTitle="AddHotel">
+    <form (ngSubmit)="onSubmit(submitform)" #submitform="ngForm">
+      <table>
+        <tr class="form-group" class="form-group row">
+          <td>Hotel Name</td>
+          <td><input type="text" name="hotelName" id="name" #hotelName="ngModel" [(ngModel)]="hotel.hotelName" required pattern="[A-Za-z]{5,15}"
+              placeholder="Enter Hotel name" style="background-color:#DCDCDC;">
+          </td>
+          <td [hidden]="hotelName.valid || hotelName.pristine" class="alert alert-danger">Only Alphabets allowed min 5 and max
+            15</td>
+        </tr>
+        <tr class="form-group" class="form-group row">
+          <td>Room Type</td>
+          <td><select name="roomType" #roomType="ngModel" [(ngModel)]="hotel.roomType" style="background-color:#DCDCDC;" required>
+              <option value="select" selected disabled hidden>select</option>
+              <option value="single">Single</option>
+              <option value="double">Double</option>
+              <option value="triple">Triple</option>
+              <option value="quad">Quad</option>
+              <option value="queen">Queen</option>
+              <option value="king">King</option>
+              <option value="twin">Twin</option>
+              <option value="double-double">Double-double</option>
+              <option value="studio">Studio</option>
+            </select></td>
+          <td [hidden]="roomType.valid || roomType.pristine" class="alert alert-danger">You need to select</td>
+        </tr>
+        <tr class="form-group" class="form-group row">
+          <td>Room No</td>
+          <td><input type="text" name="number" id="number" #roomNo="ngModel" [(ngModel)]="hotel.roomNo" pattern="[1234567890][0-9]{2,4}"
+              placeholder="Enter Room no" style="background-color:#DCDCDC;" required></td>
+          <td [hidden]="roomNo.valid || roomNo.pristine" class="alert alert-danger">Only Digits allowed min 2 and max 4
+          </td>
+        </tr>
+        <tr class="form-group" class="form-group row">
+          <td>Price</td>
+          <td><input type="text" name="price" id="price" #price="ngModel" [(ngModel)]="hotel.price" pattern="[1234567890][0-9]{2,5}"
+              placeholder="Enter price" style="background-color:#DCDCDC;" required></td>
+          <td [hidden]="price.valid || price.pristine" class="alert alert-danger">Only Digits allowed min 2 and max 5
+          </td>
+        </tr>
+
+        <tr class="form-group" class="form-group row">
+          <td>HotelAddress</td>
+          <td><select name="address" #hotelAddress="ngModel" [(ngModel)]="hotel.hotelAddress" style="background-color:#DCDCDC;" required>
+              <option value="select" selected disabled hidden>select</option>
+              <option value="whitefield">Whitefield</option>
+              <option value="electronicCity">Electronic City</option>
+              <option value="lalbagh">Lalbagh</option>
+              <option value="mysore">Mysore</option>
+              <option value="cubbon">Cubbon</option>
+              <option value="snowCity">Snow City</option>
+              <option value="nandiHills">Nandi Hills</option>
+            </select></td>
+          <td [hidden]="hotelAddress.valid || hotelAddress.pristine" class="alert alert-danger">You need to select</td>
+        </tr>
+        <tr class="form-group" class="form-group row">
+          <td>Admin Id</td>
+          <td><input type="text" name="aname" id="aname" #username= "ngModel" [(ngModel)]="hotel.username" required pattern="[A-Za-z]{4,10}"
+              placeholder="Enter Admin Name" style="background-color:#DCDCDC;">
+          </td>
+          <td [hidden]="username.valid || username.pristine" class="alert alert-danger">Only Alphabets allowed min 4 and max
+            10</td>
+        </tr>
+        <tr class="form-group" class="form-group row">
+          <td>Admin Password</td>
+          <td><input type="password" name="pwd" id="pwd"#password="ngModel" [(ngModel)]="hotel.password" required
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Enter Password"
+              style="background-color:#DCDCDC;">
+          </td>
+          <td [hidden]="password.valid || password.pristine" class="alert alert-danger">Alphabets,Digits,characters are
+            allowed </td>
+        </tr>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <td align="center">
+          <button type="submit" [disabled]="!submitform.valid" class="btn btn-info">Submit</button>
+
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+
+        </td>
+      </table>
+    </form>
+  </tab>
+
+  
+  <tab tabTitle="Bookings List">
+
+    <div fxLayout fxLayoutAlign="center center">
+      <mat-form-field fxFlex="40%">
+        <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search">
+      </mat-form-field>
+    </div>
+
+    <table mat-table [dataSource]="book" matSort class="mat-elevation-z8">
+
+      <ng-container matColumnDef="bookingId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Booking Id </th>
+        <td mat-cell *matCellDef="let element"> {{element.bookingId}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="hotelName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Hotel Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.hotelName}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="roomType">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Room Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.roomType}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="roomNo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Room No </th>
+        <td mat-cell *matCellDef="let element"> {{element.roomNo}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+        <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="hotelAddress">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Hotel Address </th>
+        <td mat-cell *matCellDef="let element"> {{element.hotelAddress}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="firstName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name</th>
+        <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="mobileNo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Mobile No </th>
+        <td mat-cell *matCellDef="let element"> {{element.mobileNo}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="adult">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Adult </th>
+        <td mat-cell *matCellDef="let element"> {{element.adult}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="child">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Child </th>
+        <td mat-cell *matCellDef="let element"> {{element.child}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="checkIn">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Check In </th>
+        <td mat-cell *matCellDef="let element"> {{element.checkIn}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="checkOut">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Check Out </th>
+        <td mat-cell *matCellDef="let element"> {{element.checkOut}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="bookingStatus">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Booking Status </th>
+        <td mat-cell *matCellDef="let element"> {{element.bookingStatus}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </tab>
+
+  <tab tabTitle="Hotels List">
+    <div style="float:right">
+      <a href="/hotels-list">Click Here to more details</a>
+    </div>
+    <div fxLayout fxLayoutAlign="center center">
+      <mat-form-field fxFlex="40%">
+        <input matInput type="text" (keyup)="doFilter1($event.target.value)" placeholder="Search">
+      </mat-form-field>
+    </div>
+    <table mat-table [dataSource]="dataSource" #sort1="matSort" matSort class="mat-elevation-z8">
+      <ng-container matColumnDef="hotelName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Hotel Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.hotelName}} </td>
+      </ng-container>
+      <ng-container matColumnDef="hotelAddress">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Hotel Address </th>
+        <td mat-cell *matCellDef="let element"> {{element.hotelAddress}} </td>
+      </ng-container>
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> User Name</th>
+        <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+      </ng-container>
+    
+      <ng-container  matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let element"><button  (click)="removeHotel(element.hotelId)" mat-stroked-button >Delete</button> </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+    </table>
+    <mat-paginator #paginator2 [pageSizeOptions]="[1, 10, 20]" showFirstLastButtons></mat-paginator>
+  </tab>
+
+
+  <tab tabTitle="AddTravelAdmin">
+    <form (ngSubmit)="onRegister(registerform)" #registerform="ngForm">
+      <table class="table table-bordered" border="2">
+        <tr class="form-group" class="form-group row">
+          <td>First Name</td>
+          <td><input type="text" name="fname" id="fname" #firstName="ngModel" [(ngModel)]="travelAgencyLogin.firstName" required
+              pattern="[A-Za-z]{5,15}" placeholder="Enter First Name" style="background-color:#DCDCDC;">
+          </td>
+          <td [hidden]="firstName.valid || firstName.pristine" class="alert alert-danger">Only
+            Alphabets
+            allowed min 5 and max 15</td>
+        </tr>
+        <tr class="form-group" class="form-group row">
+          <td>Last Name</td>
+          <td><input type="text" name="lname" id="lname" #lastName="ngModel" [(ngModel)]="travelAgencyLogin.lastName" required
+              pattern="[A-Za-z]{5,15}" placeholder="Enter Last Name" style="background-color:#DCDCDC;">
+          </td>
+          <td [hidden]="lastName.valid || lastName.pristine" class="alert alert-danger">Only
+            Alphabets
+            allowed min 5 and max 15</td>
+        </tr>
+        <tr class="form-group" class="form-group row">
+          <td>Mobile No</td>
+          <td><input type="text" name="num" id="num" #mobileNo="ngModel" [(ngModel)]="travelAgencyLogin.mobileNo" required
+              pattern="[6789][0-9]{9}" placeholder="Enter Mobile No" style="background-color:#DCDCDC;">
+          </td>
+          <td [hidden]="mobileNo.valid || mobileNo.pristine" class="alert alert-danger">Only 10
+            Digits
+            allowed </td>
+        </tr>
+        <tr class="form-group" class="form-group row">
+          <td>Location</td>
+          <td><input type="text" name="loc" id="loc" #plocation="ngModel" [(ngModel)]="travelAgencyLogin.plocation" required
+              pattern="[A-Za-z]{5,15}" placeholder="Enter Location" style="background-color:#DCDCDC;">
+          </td>
+          <td [hidden]="plocation.valid || plocation.pristine" class="alert alert-danger">Only
+            Alphabets
+            allowed min 5 and max 15</td>
+        </tr>
+        <tr class="form-group" class="form-group row">
+          <td>Travel AdminId</td>
+          <td><input type="text" name="tname" id="tname" #userName="ngModel" [(ngModel)]="travelAgencyLogin.userName" required
+              pattern="[A-Za-z]{5,10}" placeholder="Enter Travel AdminId" style="background-color:#DCDCDC;">
+          </td>
+          <td [hidden]="userName.valid || userName.pristine" class="alert alert-danger">Only
+            Alphabets
+            allowed min 5 and max 10</td>
+        </tr>
+        <tr class="form-group" class="form-group row">
+          <td>Travel AdminPassword</td>
+          <td><input type="password" name="password" id="password" #password="ngModel" [(ngModel)]="travelAgencyLogin.password" required
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Enter Travel Admin Password"
+              style="background-color:#DCDCDC;">
+          </td>
+          <td [hidden]="password.valid || password.pristine" class="alert alert-danger">
+            Alphabets,digits,characters are allowed</td>
+        </tr>
+        <td>
+          <button type="submit" [disabled]="!registerform.valid" class="btn btn-info">Submit</button>
+        </td>
+      </table>
+    </form>
+  </tab>
+</tabs>
